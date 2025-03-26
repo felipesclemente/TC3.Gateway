@@ -1,0 +1,45 @@
+@Contatos.Gateway_HostAddress = http://localhost:53132
+
+GET {{Contatos.Gateway_HostAddress}}/cadastrarcontato
+Accept: application/json
+
+###
+
+POST {{Contatos.Gateway_HostAddress}}/cadastrarcontato
+Content-Type: application/json
+
+{
+  "nomeCompleto": "Ademar Garcia",
+  "DDD": 99,
+  "Telefone": 999624538
+}
+
+###
+
+GET {{Contatos.Gateway_HostAddress}}/atualizarcontato
+Accept: application/json
+
+###
+
+PUT {{Contatos.Gateway_HostAddress}}/atualizarcontato
+Content-Type: application/json
+
+{
+  "IdContato": 2,
+  "novoNomeCompleto": "José Reis Silva",
+  "novoDDD": 49,
+  "novoTelefone": 992356623,
+  "novoEmail": "josereis@email.com"
+}
+
+###
+
+GET {{Contatos.Gateway_HostAddress}}/apagarcontato
+Accept: application/json
+
+###
+
+@id=2
+DELETE {{Contatos.Gateway_HostAddress}}/apagarcontato/{{id}}
+
+###

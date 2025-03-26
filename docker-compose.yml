@@ -1,0 +1,62 @@
+services:
+  contatos.gateway:
+    image: ${DOCKER_REGISTRY-}contatosgateway
+    build:
+      context: ..
+      dockerfile: Contatos.Gateway/Contatos.Gateway/Dockerfile
+    depends_on:
+    - contatos.createproducer
+    - contatos.createconsumer
+    - contatos.updateproducer
+    - contatos.updateconsumer
+    - contatos.deleteproducer
+    - contatos.deleteconsumer
+
+  contatos.createproducer:
+    image: felsc/contatoscreateproducer
+    depends_on:
+    - rabbitmq
+
+  contatos.createconsumer:
+    image: felsc/contatoscreateconsumer
+    depends_on:
+    - rabbitmq
+    - postgres
+
+  contatos.updateproducer:
+    image: felsc/contatosupdateproducer
+    depends_on:
+    - rabbitmq
+
+  contatos.updateconsumer:
+    image: felsc/contatosupdateconsumer
+    depends_on:
+    - rabbitmq
+
+  contatos.deleteproducer:
+    image: felsc/contatosdeleteproducer
+    depends_on:
+    - rabbitmq
+
+  contatos.deleteconsumer:
+    image: felsc/contatosdeleteconsumer
+    depends_on:
+    - rabbitmq
+
+  rabbitmq:
+    image: masstransit/rabbitmq
+    ports:
+    - "5672:5672"
+    - "15672:15672"
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_USER: "postgres"
+    ports:
+    - "5432:5432"
+    volumes:
+    - ./create_regiao.sql:/docker-entrypoint-initdb.d/create_regiao.sql
+    - ./create_contato.sql:/docker-entrypoint-initdb.d/create_contato.sql
+    - ./pgData:/var/lib/postgresql/data

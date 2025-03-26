@@ -1,0 +1,62 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/cadastrocontato",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "contatos.createproducer",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/cadastrarcontato",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 10,
+        "Limit": 10
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/atualizacontato",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "contatos.updateproducer",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/atualizarcontato",
+      "UpstreamHttpMethod": [ "GET", "PUT" ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 10,
+        "Limit": 10
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/apagacontato/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "contatos.deleteproducer",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/apagarcontato/{id}",
+      "UpstreamHttpMethod": [ "GET", "DELETE" ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 10,
+        "Limit": 10
+      }
+    }
+  ],
+  "GlobalConfiguration": { }
+}
